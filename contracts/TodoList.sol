@@ -5,4 +5,9 @@ contract TodoList {
     /// public keywords adds a function to red the state variable 
     uint public taskCount = 0;
 
+    struct Task {
+        uint id;
+        string content;
+        bool completed;
+    }
 }
