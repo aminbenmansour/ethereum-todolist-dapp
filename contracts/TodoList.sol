@@ -15,6 +15,9 @@ contract TodoList {
     /// public for adding a free get function
     mapping(uint => Task) public tasks;
 
+    constructor() public {
+        createTask("This task is created by default");
+    }
 
     function createTask(string memory _content) public {
         taskCount++;
