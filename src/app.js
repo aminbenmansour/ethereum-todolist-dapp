@@ -6,6 +6,7 @@ App = {
         await App.loadWeb3()
         await App.loadAccount()
         await App.loadContract()
+        await App.render()
 
         web3.eth.defaultAccount = web3.eth.accounts[0]
     },
@@ -46,6 +47,7 @@ App = {
     loadAccount: async () => {
         // Set the current blockchain account
         App.account = web3.eth.accounts[0]
+
     },
 
     loadContract: async () => {
@@ -60,22 +62,36 @@ App = {
 
     render: async () => {
         // Prevent double render
+        console.log('abc')
         if (App.loading) {
-          return
+            return
         }
-    
+
         // Update app loading state
         App.setLoading(true)
-    
+        console.log('def')
         // Render Account
         $('#account').html(App.account)
-    
+
         // Render Tasks
         await App.renderTasks()
-    
+
         // Update loading state
         App.setLoading(false)
-      }
+    },
+
+    setLoading: (boolean) => {
+        App.loading = boolean
+        const loader = $('#loader')
+        const content = $('#content')
+        if (boolean) {
+            loader.show()
+            content.hide()
+        } else {
+            loader.hide()
+            content.show()
+        }
+    }
 }
 
 $(() => {
