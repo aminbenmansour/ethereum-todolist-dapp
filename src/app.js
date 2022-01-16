@@ -1,4 +1,5 @@
 App = {
+    loading: false,
     contracts: {},
 
     load: async () => {
@@ -45,7 +46,6 @@ App = {
     loadAccount: async () => {
         // Set the current blockchain account
         App.account = web3.eth.accounts[0]
-        console.log(App.account)
     },
 
     loadContract: async () => {
@@ -56,7 +56,26 @@ App = {
 
         // Hydrate the smart contract with values from the blockchain
         App.todoList = await App.contracts.TodoList.deployed()
-    }
+    },
+
+    render: async () => {
+        // Prevent double render
+        if (App.loading) {
+          return
+        }
+    
+        // Update app loading state
+        App.setLoading(true)
+    
+        // Render Account
+        $('#account').html(App.account)
+    
+        // Render Tasks
+        await App.renderTasks()
+    
+        // Update loading state
+        App.setLoading(false)
+      }
 }
 
 $(() => {
