@@ -25,4 +25,15 @@ contract('TodoList', (accounts) => {
         assert.equal(task.content, 'This task is created by default')
         assert.equal(task.completed, false)
     })
+
+    it('create tasks', async () => {
+        const result = await this.todoList.createTask('A new task')
+        const taskCount = await this.todoList.taskCount()
+        const event = result.logs[0].args
+
+        assert.equal(taskCount, 2)
+        assert.equal(event.id.toNumber(), 2)
+        assert.equal(event.content, 'A new task')
+        assert.equal(event.completed, false)
+    })
 })
