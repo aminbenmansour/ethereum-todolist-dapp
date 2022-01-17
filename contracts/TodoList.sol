@@ -15,7 +15,7 @@ contract TodoList {
     /// public for adding a free get function
     mapping(uint => Task) public tasks;
 
-    // we will listen to this event to to know that the transaction was completed
+    /// we will listen to this event to to know that the transaction was completed
     event TaskCreated(
         uint id,
         string content,
