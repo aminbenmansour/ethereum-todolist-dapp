@@ -79,19 +79,6 @@ App = {
         App.setLoading(false)
     },
 
-    setLoading: (boolean) => {
-        App.loading = boolean
-        const loader = $('#loader')
-        const content = $('#content')
-        if (boolean) {
-            loader.show()
-            content.hide()
-        } else {
-            loader.hide()
-            content.show()
-        }
-    },
-
     renderTasks: async () => {
         // Load the total task count from the blockchain
         const taskCount = await App.todoList.taskCount()
@@ -122,6 +109,26 @@ App = {
 
             // Show the task
             $newTaskTemplate.show()
+        }
+    },
+
+    createTask: async () => {
+        App.setLoading(true)
+        const content = $('#newTask').val()
+        await App.todoList.createTask(content)
+        window.location.reload()
+    },
+
+    setLoading: (boolean) => {
+        App.loading = boolean
+        const loader = $('#loader')
+        const content = $('#content')
+        if (boolean) {
+            loader.show()
+            content.hide()
+        } else {
+            loader.hide()
+            content.show()
         }
     },
 }
