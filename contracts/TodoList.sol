@@ -15,6 +15,13 @@ contract TodoList {
     /// public for adding a free get function
     mapping(uint => Task) public tasks;
 
+    // we will listen to this event to to know that the transaction was completed
+    event TaskCreated(
+        uint id,
+        string content,
+        bool completed
+    );
+
     constructor() public {
         createTask("This task is created by default");
     }
@@ -23,5 +30,8 @@ contract TodoList {
         taskCount++;
 
         tasks[taskCount] = Task(taskCount, _content, false);
+        
+        // calling the event
+        emit TaskCreated(taskCount, _content, false);
     }
 }
